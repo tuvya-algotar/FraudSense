@@ -16,13 +16,7 @@ Built as part of a collaborative hackathon project.
 </p>
 
 <p>
-<b>FraudSense</b> is a high-performance, multi-layered fraud detection system designed to identify and block sophisticated financial fraud patterns in real-time.
-</p>
-
-<img width="1536" height="1024" alt="image" src="https://github.com/user-attachments/assets/6fd47ebd-536b-4465-bf79-4724c6e51835" />
-
-<p>
-Built using a hybrid approach of rule-based intelligence, behavioral profiling, and machine learning, the system focuses on detecting high-risk activities such as Account Takeovers (ATO), coordinated fraud rings, and abnormal transaction behavior.
+<b>FraudSense</b> is a real-time fraud detection system designed to analyze transactions before completion and prevent high-risk activities using behavioral intelligence, machine learning, and rule-based logic.
 </p>
 
 <p>
@@ -31,38 +25,61 @@ Built using a hybrid approach of rule-based intelligence, behavioral profiling, 
 
 <hr>
 
-<h2>🚀 Core Features</h2>
+<h2>🚀 Current Status</h2>
 
-<h3>🛡️ 6-Layer Risk Engine</h3>
 <ul>
-<li>Location anomalies</li>
-<li>Device trust</li>
-<li>Behavioral patterns</li>
-<li>ML-based probability</li>
-<li>Network graph connections</li>
-<li>Transaction chain patterns</li>
+<li>✅ Backend fully functional and tested</li>
+<li>⚠️ Frontend under reconstruction (v2.0 UI in progress)</li>
+<li>✅ API accessible via <code>/docs</code></li>
 </ul>
 
-<h3>📈 Dominant Signal Scoring</h3>
-<p>Custom scoring logic ensures high-risk signals are never diluted:</p>
+<p>
+This version focuses on a complete redesign of the fraud detection engine with improved accuracy, stability, and system design.
+</p>
+
+<hr>
+
+<h2>🧠 Core System Design</h2>
+
+<h3>🔍 Behavioral Fraud Detection</h3>
+<ul>
+<li>Amount deviation (z-score based)</li>
+<li>Transaction velocity tracking</li>
+<li>Time-based anomaly detection</li>
+<li>Category-based behavior analysis</li>
+</ul>
+
+<h3>🤖 Machine Learning Layer</h3>
+<ul>
+<li>Random Forest model</li>
+<li>Feature-aligned input pipeline</li>
+<li>Integrated into real-time scoring</li>
+</ul>
+
+<h3>⚖️ Hybrid Scoring System</h3>
 <pre>
-FinalScore = (0.7 × MaxLayer) + (0.3 × WeightedAvg)
+Final Score = 0.65 × ML Score + 0.35 × Rule Score
 </pre>
 
-<h3>🔄 Adaptive Risk Logic</h3>
-<p>
-Dynamically adjusts risk sensitivity based on observed transaction patterns and system feedback.
-</p>
+<h3>🧠 Decision Engine</h3>
+<ul>
+<li>APPROVE (low risk)</li>
+<li>MFA_HOLD (medium risk)</li>
+<li>BLOCK (high risk)</li>
+</ul>
 
-<h3>⚡ Graph-Based Fraud Detection</h3>
-<p>
-Detects circular money flows and coordinated attacks using NetworkX graph analysis.
-</p>
+<h3>🚨 Safety Overrides</h3>
+<ul>
+<li>Critical fraud patterns trigger forced BLOCK</li>
+<li>Velocity + anomaly triggers MFA</li>
+</ul>
 
-<h3>🧠 Hybrid Intelligence System</h3>
-<p>
-Combines deterministic rules with ML models (Random Forest / XGBoost) for robust detection.
-</p>
+<h3>🔗 Network Risk Detection</h3>
+<ul>
+<li>Shared device detection</li>
+<li>Merchant spike analysis</li>
+<li>Fraud pattern linking</li>
+</ul>
 
 <hr>
 
@@ -70,9 +87,8 @@ Combines deterministic rules with ML models (Random Forest / XGBoost) for robust
 
 <ul>
 <li><b>Backend:</b> FastAPI (Python)</li>
-<li><b>Frontend:</b> React + Vite (Command Center Dashboard)</li>
-<li><b>ML Engine:</b> Scikit-learn (Random Forest / XGBoost)</li>
-<li><b>Graph Engine:</b> NetworkX</li>
+<li><b>Frontend:</b> React + Vite (Rebuilding UI v2.0)</li>
+<li><b>ML Engine:</b> Scikit-learn (Random Forest)</li>
 <li><b>Database:</b> SQLite</li>
 </ul>
 
@@ -81,126 +97,66 @@ Combines deterministic rules with ML models (Random Forest / XGBoost) for robust
 <h2>📂 Project Structure</h2>
 
 <pre>
-backend/          # Risk Engine, Services, Graph Logic
-frontend/         # React Dashboard
-models/           # Trained ML models (.pkl)
-main.py           # Entry point
-requirements.txt  # Dependencies
-README.md         # Documentation
+backend/
+frontend/
+models/
+main.py
+requirements.txt
+README.md
 </pre>
 
 <hr>
 
 <h2>🛠️ Setup & Installation</h2>
 
-<h3>1. Backend</h3>
+<h3>Backend</h3>
 <pre>
 pip install -r requirements.txt
 uvicorn main:app --reload --port 8000
 </pre>
 
-<h3>2. Frontend</h3>
+<h3>Frontend</h3>
 <pre>
 cd frontend
 npm install
 npm run dev
 </pre>
 
+<p>⚠️ Note: Frontend is currently under development.</p>
+
 <hr>
 
 <h2>📡 API Endpoint</h2>
 
-<h3>💳 Process Transaction</h3>
-<p><b>POST /api/transaction</b></p>
+<h3>POST /api/transaction</h3>
 
-<p>Evaluates a transaction and returns a fraud risk decision.</p>
+<p>Evaluates a transaction before execution.</p>
 
-<h4>Sample Input</h4>
-<pre>
-{
-  "tx_id": "TX-9901",
-  "user_id": "user_1001",
-  "amount": 85000.0,
-  "city": "Mumbai",
-  "device_id": "DEV-SAFE-01",
-  "tx_type": "TRANSFER",
-  "channel": "mobile"
-}
-</pre>
-
-<h4>Sample Response</h4>
-<pre>
-{
-  "status": "success",
-  "decision": "APPROVE",
-  "risk_score": 12
-}
-</pre>
-
-<hr>
-
-<h2>🧠 Model Training</h2>
-
-<p>To retrain the fraud detection model:</p>
-
-<pre>
-python train_models.py
-</pre>
-
-<hr>
-
-<h2>📊 Dashboard</h2>
-
-<p>The <b>FraudSense Command Center</b> provides:</p>
-<ul>
-<li>Real-time transaction monitoring</li>
-<li>Risk score visualization</li>
-<li>Fraud pattern tracking</li>
-<li>System performance insights</li>
-</ul>
-
-<p>Runs locally via Vite after frontend setup.</p>
+<p>Access interactive API via:</p>
+<pre>http://127.0.0.1:8000/docs</pre>
 
 <hr>
 
 <h2>🎯 Key Highlights</h2>
 
 <ul>
-<li>Designed for real-time fraud detection use cases</li>
-<li>Strong focus on system design and scoring logic</li>
-<li>Built during a competitive hackathon environment</li>
-<li>Clean modular architecture for scalability</li>
+<li>Behavior-based fraud detection</li>
+<li>Hybrid ML + rule scoring</li>
+<li>Real-time decision engine</li>
+<li>System-level architecture focus</li>
 </ul>
-
-<hr>
 
 <hr>
 
 <h2>🤝 Contributing</h2>
 
-<p>
-I would like to welcome contributions to improve FraudSense 🚀
-</p>
+<p>Contributions are welcome 🚀</p>
 
 <ul>
-<li>Fix bugs or improve performance</li>
-<li>Add new fraud detection features</li>
-<li>Enhance UI/UX of the dashboard</li>
+<li>Improve detection logic</li>
+<li>Enhance frontend UI</li>
+<li>Fix bugs</li>
 <li>Improve documentation</li>
 </ul>
-
-<h3>📌 How to Contribute</h3>
-
-<ol>
-<li>Fork the repository</li>
-<li>Create a new branch (<code>feature/your-feature-name</code>)</li>
-<li>Make your changes</li>
-<li>Commit and push</li>
-<li>Open a Pull Request</li>
-</ol>
-
-<p>
-For major changes, please open an issue first to discuss what you would like to change.
-</p>
 
 <p>© 2026 FraudSense Team</p>
