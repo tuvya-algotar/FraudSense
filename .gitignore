@@ -1,0 +1,24 @@
+.venv/
+__pycache__/
+.env
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+
+node_modules/
+dist/
+build/
+*.pkl
+
+.DS_Store
+*.swp
+*.bak
+*.tmp
+*.log
+
+# Database files (ephemeral but useful)
+# fraudsense.db
